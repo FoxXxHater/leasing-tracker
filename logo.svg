@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Hintergrund -->
+  <rect width="512" height="512" fill="#1a1a2e" rx="60"/>
+  
+  <!-- Gradient Definition -->
+  <defs>
+    <linearGradient id="carGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4A90E2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#357ABD;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#FF6B6B;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#FFD93D;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6BCF7F;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Auto-Silhouette -->
+  <g transform="translate(256, 200)">
+    <!-- Auto Körper -->
+    <path d="M -80,-40 L -70,-60 L -30,-70 L 30,-70 L 70,-60 L 80,-40 L 90,-20 L 90,20 L 80,35 L -80,35 L -90,20 L -90,-20 Z" 
+          fill="url(#carGradient)" 
+          stroke="#fff" 
+          stroke-width="3"/>
+    
+    <!-- Fenster -->
+    <path d="M -60,-50 L -35,-60 L 0,-62 L 35,-60 L 60,-50 L 55,-35 L -55,-35 Z" 
+          fill="#2C3E50" 
+          opacity="0.8"/>
+    
+    <!-- Räder -->
+    <circle cx="-55" cy="35" r="18" fill="#2C3E50" stroke="#fff" stroke-width="3"/>
+    <circle cx="55" cy="35" r="18" fill="#2C3E50" stroke="#fff" stroke-width="3"/>
+    <circle cx="-55" cy="35" r="10" fill="#555"/>
+    <circle cx="55" cy="35" r="10" fill="#555"/>
+    
+    <!-- Scheinwerfer -->
+    <circle cx="-75" cy="-10" r="6" fill="#FFD93D" opacity="0.9"/>
+    <circle cx="75" cy="-10" r="6" fill="#FFD93D" opacity="0.9"/>
+  </g>
+  
+  <!-- Tachometer/Gauge im Hintergrund -->
+  <g transform="translate(256, 380)">
+    <!-- Gauge Hintergrund -->
+    <circle cx="0" cy="0" r="80" fill="none" stroke="#333" stroke-width="20" opacity="0.3"/>
+    
+    <!-- Gauge Fortschritt -->
+    <path d="M -56.57,-56.57 A 80,80 0 0,1 56.57,-56.57" 
+          fill="none" 
+          stroke="url(#gaugeGradient)" 
+          stroke-width="20" 
+          stroke-linecap="round"/>
+    
+    <!-- Nadel -->
+    <line x1="0" y1="0" x2="0" y2="-60" 
+          stroke="#fff" 
+          stroke-width="4" 
+          stroke-linecap="round"
+          transform="rotate(45)"/>
+    
+    <!-- Zentrum -->
+    <circle cx="0" cy="0" r="8" fill="#fff"/>
+  </g>
+  
+  <!-- Kilometer Symbol -->
+  <g transform="translate(120, 100)">
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="#fff">KM</text>
+  </g>
+  
+  <!-- Statistik Linien (dekorativ) -->
+  <g opacity="0.2">
+    <line x1="50" y1="450" x2="150" y2="430" stroke="#4A90E2" stroke-width="2"/>
+    <line x1="150" y1="430" x2="180" y2="410" stroke="#4A90E2" stroke-width="2"/>
+    <line x1="180" y1="410" x2="200" y2="440" stroke="#4A90E2" stroke-width="2"/>
+    
+    <line x1="350" y1="450" x2="380" y2="420" stroke="#6BCF7F" stroke-width="2"/>
+    <line x1="380" y1="420" x2="420" y2="430" stroke="#6BCF7F" stroke-width="2"/>
+    <line x1="420" y1="430" x2="450" y2="410" stroke="#6BCF7F" stroke-width="2"/>
+  </g>
+  
+  <!-- Check/Status Icon oben rechts -->
+  <g transform="translate(420, 90)">
+    <circle cx="0" cy="0" r="30" fill="#6BCF7F" opacity="0.9"/>
+    <path d="M -12,0 L -5,10 L 15,-10" 
+          fill="none" 
+          stroke="#fff" 
+          stroke-width="5" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"/>
+  </g>
+</svg>
