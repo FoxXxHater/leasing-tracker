@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/DEIN-USERNAME/leasing_tracker/releases">
+  <a href="https://github.com/foxxxhater/hacs_leasing_tracker/releases">
     <img src="https://img.shields.io/github/release/foxxxhater/hacs_leasing_tracker.svg?style=flat-square" alt="GitHub Release">
   </a>
   <a href="LICENSE">
