@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.3] - 04-02-2026
+
+- "OptionsFlow" Fehler behoben
+- Fehler beim Laden gespeicherter Daten behoben
+- Webserver stürzt nicht mehr ab bei änderungen
+
 ## [1.1.2] - 04-02-2026
 
 - Weitere Änderungen an der Grafiken in HA
