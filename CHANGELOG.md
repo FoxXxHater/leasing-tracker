@@ -34,16 +34,6 @@
   - Genauere Berechnung der erlaubten KM pro Monat/Jahr
   - Berücksichtigung von anteiligen Monaten/Jahren bei Leasingbeginn
 
-### Anzahl Sensoren
-- **Vorher:** 14 Sensoren
-- **Jetzt:** 22 Sensoren
-
-### Migration
-Wenn du von Version 1.0.0 aktualisierst:
-1. Die alten Sensoren bleiben erhalten (mit "Schätzung" im Namen)
-2. Neue Sensoren werden automatisch hinzugefügt
-3. Eventuell Dashboard-Konfigurationen anpassen, wenn du die neuen tatsächlichen Werte nutzen möchtest
-
 ## [1.0.0] - 2024-02-03
 
 ### Initial Release
