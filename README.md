@@ -23,7 +23,7 @@
 ## 📸 Screenshot
 
 <p align="center">
-  <img src="SCREENSHOT.png" alt="Dashboard Screenshot" high="20%">
+  <img src="SCREENSHOT.png" alt="Dashboard Screenshot" high="15%">
 </p>
 
 - made with the <a href="https://github.com/WJDDesigns/Ultra-Vehicle-Card" alt="Link to Ultra Vehicle Card">Ultra Vehicle Card</a> and <a href="https://github.com/th3jesta/ha-lcars" alt="Link to HA-LCARS">HA-LCARS</a> because, YES i am a Star Trek Fan...
