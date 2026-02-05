@@ -40,6 +40,10 @@ And of course with the <a href="https://github.com/skodaconnect/homeassistant-my
 - ✅ **HACS kompatibel** - Einfache Installation und Updates
 - ✅ **Deutsch + English** - Vollständige Übersetzungen
 
+## 🔦 Passend dazu
+
+**Meine Leasing Tracker Card** --> <a href="https://github.com/FoxXxHater/hacs_leasing_tracker_card" alt="Link to my Crad Projekt">Link</a>
+
 ## 📊 Sensoren
 
 ### Verbleibende Kilometer
