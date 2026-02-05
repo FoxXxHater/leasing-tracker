@@ -190,4 +190,4 @@ Wenn Ihnen diese Integration hilft, geben Sie dem Projekt gerne einen Stern! ⭐
 
 Entwickelt mit ❤️ für die Home Assistant Community
 
-P.S. mit freundlicher Unterstüzung con Claude
+P.S. mit freundlicher Unterstüzung von Claude
