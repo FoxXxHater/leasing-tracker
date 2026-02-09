@@ -1,13 +1,13 @@
 {
+  "domain": "leasing_tracker",
+  "name": "Leasing Tracker",
   "codeowners": ["@foxxxhater"],
   "config_flow": true,
   "dependencies": [],
   "documentation": "https://github.com/foxxxhater/hacs_leasing_tracker",
-  "domain": "leasing_tracker",
   "integration_type": "device",
   "iot_class": "calculated",
   "issue_tracker": "https://github.com/foxxxhater/hacs_leasing_tracker/issues",
-  "name": "Leasing Tracker",
   "requirements": [],
   "version": "1.1.3"
 }
