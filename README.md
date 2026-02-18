@@ -1,4 +1,4 @@
-# 🚗 Leasing Tracker für Home Assistant
+# 🚗 Leasing Tracker for Home Assistant
 
 <p align="center">
   <img src="banner.svg" alt="Leasing Tracker Banner" width="100%">
@@ -17,7 +17,7 @@
 </p>
 
 <p align="center">
-  Eine Custom Integration für Home Assistant, um Leasingfahrzeuge zu überwachen und verbleibende Kilometer zu berechnen.
+  A custom integration for Home Assistant to monitor leased vehicles and calculate remaining kilometers.
 </p>
 
 ## 📸 Screenshot
@@ -26,7 +26,7 @@
   <img src="SCREENSHOT.png" alt="Dashboard Screenshot" high="15%">
 </p>
 
-- made with the <a href="https://github.com/WJDDesigns/Ultra-Vehicle-Card" alt="Link to Ultra Vehicle Card">Ultra Vehicle Card</a>, <a href="https://github.com/th3jesta/ha-lcars" alt="Link to HA-LCARS">HA-LCARS</a> (YES i am a Star Trek Fan...), <a href="https://github.com/skodaconnect/homeassistant-myskoda">MySkoda</a> Integraion and of course <a href="https://github.com/foxxxhater/leasing-tracker-card/" alt="Link to Leasing Tracker Card">My Leasing Tracker Card</a>
+- made with the <a href="https://github.com/WJDDesigns/Ultra-Vehicle-Card" alt="Link to Ultra Vehicle Card">Ultra Vehicle Card</a>, <a href="https://github.com/th3jesta/ha-lcars" alt="Link to HA-LCARS">HA-LCARS</a> (YES i am a Star Trek Fan...), <a href="https://github.com/skodaconnect/homeassistant-myskoda">MySkoda</a> Integration and of course <a href="https://github.com/foxxxhater/leasing-tracker-card/" alt="Link to Leasing Tracker Card">My Leasing Tracker Card</a>
 
 
 A huge Thanks to all great Dev out there!
@@ -35,77 +35,77 @@ A huge Thanks to all great Dev out there!
 
 ## ✨ Features
 
-- ✅ **22 automatische Sensoren** - Umfassende Überwachung aller Leasingdaten
-- ✅ **Tatsächliche + geschätzte Werte**
-- ✅ **UI-Konfiguration** - Keine YAML-Konfiguration nötig
-- ✅ **Mehrere Fahrzeuge** - Beliebig viele Leasingverträge parallel
-- ✅ **HACS kompatibel** - Einfache Installation und Updates
-- ✅ **Deutsch + English** - Vollständige Übersetzungen
+- ✅ **22 automatic sensors** - Comprehensive monitoring of all leasing data
+- ✅ **Actual + estimated values**
+- ✅ **UI configuration** - No YAML configuration needed
+- ✅ **Multiple vehicles** - Any number of leasing contracts in parallel
+- ✅ **HACS compatible** - Easy installation and updates
+- ✅ **German + English** - Full translations
 
-## 🔦 Passend dazu
+## 📦 Companion project
 
-<a href="https://github.com/FoxXxHater/leasing-tracker-card" alt="Link to my Crad Projekt">**Meine Leasing Tracker Card**</a>
+<a href="https://github.com/FoxXxHater/leasing-tracker-card" alt="Link to my Card Project">**My Leasing Tracker Card**</a>
 
-## 📊 Sensoren
+## 📊 Sensors
 
-### Verbleibende Kilometer
-- Verbleibende KM Gesamt
-- Verbleibende KM dieses Jahr (tatsächlich)
-- Verbleibende KM diesen Monat (tatsächlich)
-- Schätzung Verbleibende KM dieses Jahr
-- Schätzung Verbleibende KM diesen Monat
+### Remaining Kilometers
+- Remaining KM Total
+- Remaining KM this year (actual)
+- Remaining KM this month (actual)
+- Estimated remaining KM this year
+- Estimated remaining KM this month
 
-### Gefahrene Kilometer
-- Gefahrene KM (gesamt)
-- Gefahrene KM diesen Monat
-- Gefahrene KM dieses Jahr
-- Durchschnitt KM pro Tag
-- Durchschnitt KM pro Monat
+### Driven Kilometers
+- Driven KM (total)
+- Driven KM this month
+- Driven KM this year
+- Average KM per day
+- Average KM per month
 
-### Status & Fortschritt
-- Status (Im Plan / Über Plan / Unter Plan)
-- KM Differenz zum Plan
-- Fortschritt (%)
-- Verbleibende Tage/Monate
+### Status & Progress
+- Status (On Track / Over Plan / Under Plan)
+- KM difference to plan
+- Progress (%)
+- Remaining days/months
 
-### Vertragsdaten
-- Erlaubte KM Gesamt
-- Erlaubte KM dieses Jahr
-- Erlaubte KM diesen Monat
-- Erlaubte KM pro Monat (Durchschnitt)
+### Contract Data
+- Allowed KM total
+- Allowed KM this year
+- Allowed KM this month
+- Allowed KM per month (average)
 
 ## 🚀 Installation
 
-### Via HACS (empfohlen)
+### Via HACS (recommended)
 
-1. HACS in Home Assistant öffnen
-2. "Integrationen" → ⋮ → "Benutzerdefinierte Repositories"
-3. Repository hinzufügen:
+1. Open HACS in Home Assistant
+2. "Integrations" → ⋮ → "Custom Repositories"
+3. Add repository:
    - URL: `https://github.com/foxxxhater/leasing-tracker`
-   - Kategorie: "Integration"
-4. "Leasing Tracker" suchen und installieren
-5. Home Assistant neu starten
-6. Integration über UI hinzufügen
+   - Category: "Integration"
+4. Search for "Leasing Tracker" and install
+5. Restart Home Assistant
+6. Add integration via UI
 
-### Manuell
+### Manual
 
-1. Lade Sie die neueste Version herunter: [Releases](https://github.com/foxxxhater/leasing-tracker/releases)
-2. Entpacke Sie das Archiv
-3. Kopieren Sie den `leasing_tracker` Ordner nach `custom_components/`
-4. Home Assistant neu starten
-5. Integration über UI hinzufügen
+1. Download the latest version: [Releases](https://github.com/foxxxhater/leasing-tracker/releases)
+2. Extract the archive
+3. Copy the `leasing_tracker` folder to `custom_components/`
+4. Restart Home Assistant
+5. Add integration via UI
 
-## ⚙️ Konfiguration
+## ⚙️ Configuration
 
-### Schritt 1: Kilometerstand-Sensor erstellen (Optional)
-(Wenn keine Entität von Ihrem Auto zur verfügung steht)
+### Step 1: Create mileage sensor (Optional)
+(If no entity from your car is available)
 
-Fügen Sie der `configuration.yaml` hinzu:
+Add to `configuration.yaml`:
 
 ```yaml
 input_number:
   car_mileage:
-    name: "Auto Kilometerstand"
+    name: "Car Mileage"
     min: 0
     max: 500000
     step: 1
@@ -113,28 +113,28 @@ input_number:
     icon: mdi:counter
 ```
 
-### Schritt 2: Integration hinzufügen
+### Step 2: Add integration
 
-1. **Einstellungen** → **Geräte & Dienste**
-2. **+ Integration hinzufügen**
-3. Suche: **"Leasing Tracker"**
-4. Formular ausfüllen:
-   - Name (z.B. "BMW 3er Leasing")
-   - Kilometerstand-Sensor
-   - Start-/End-Datum
-   - Start-KM
-   - Erlaubte KM/Jahr
+1. **Settings** → **Devices & Services**
+2. **+ Add Integration**
+3. Search: **"Leasing Tracker"**
+4. Fill out the form:
+   - Name (e.g. "BMW 3 Series Leasing")
+   - Mileage sensor
+   - Start/end date
+   - Starting KM
+   - Allowed KM/year
 
-### Schritt 3: Fertig! 🎉
+### Step 3: Done! 🎉
 
-Alle Sensoren werden automatisch erstellt und aktualisieren sich bei Änderung des Kilometerstands.
+All sensors are created automatically and update whenever the mileage changes.
 
-## 📱 Dashboard Beispiele
+## 📱 Dashboard Examples
 
-### Kompakte Übersicht
+### Compact Overview
 ```yaml
 type: entities
-title: 🚗 Mein Leasing
+title: 🚗 My Leasing
 entities:
   - sensor.bmw_3er_status
   - sensor.bmw_3er_verbleibende_km_monat
@@ -143,13 +143,13 @@ entities:
   - sensor.bmw_3er_gefahrene_km
 ```
 
-## 🔔 Beispiel Automatisierung
+## 🔔 Example Automation
 
-Benachrichtigung bei zu vielen Kilometern:
+Notification when mileage is too high:
 
 ```yaml
 automation:
-  - alias: "Leasing Warnung"
+  - alias: "Leasing Warning"
     trigger:
       platform: numeric_state
       entity_id: sensor.bmw_3er_km_differenz_zum_plan
@@ -157,30 +157,30 @@ automation:
     action:
       service: notify.mobile_app
       data:
-        title: "⚠️ Leasing Warnung"
-        message: "Du bist {{ states('sensor.bmw_3er_km_differenz_zum_plan') }} km über dem Plan!"
+        title: "⚠️ Leasing Warning"
+        message: "You are {{ states('sensor.bmw_3er_km_differenz_zum_plan') }} km over the plan!"
 ```
 
-## 📚 Dokumentation
+## 📚 Documentation
 
 - [📝 Changelog](CHANGELOG.md)
 
-## 🐛 Fehler & Probleme
-→ [Issue erstellen](https://github.com/foxxxhater/leasing-tracker/issues)
+## 🐛 Bugs & Issues
+→ [Create an issue](https://github.com/foxxxhater/leasing-tracker/issues)
 
-## 🤝 Beitragen
+## 🤝 Contributing
 
-Contributions sind willkommen! 
+Contributions are welcome!
 
-1. Forken Sie das Repository
-2. Erstelle Sie einen Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit Sie Ihre Änderungen (`git commit -m 'Add some AmazingFeature'`)
-4. Push zum Branch (`git push origin feature/AmazingFeature`)
-5. Öffnen Sie einen Pull Request
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-## 📄 Lizenz
+## 📄 License
 
-Dieses Projekt ist unter der MIT License lizenziert - siehe [LICENSE](LICENSE) für Details.
+This project is licensed under the MIT License - see [LICENSE](LICENSE) for details.
 
 ## 💬 Support
 
@@ -188,12 +188,12 @@ Dieses Projekt ist unter der MIT License lizenziert - siehe [LICENSE](LICENSE) f
 - 💡 [Discussions](https://github.com/foxxxhater/leasing-tracker/discussions)
 - 🏠 [Home Assistant Community Forum](https://community.home-assistant.io/)
 
-## ⭐ Danke!
+## ⭐ Thanks!
 
-Wenn Ihnen diese Integration hilft, geben Sie dem Projekt gerne einen Stern! ⭐
+If this integration helps you, feel free to give the project a star! ⭐
 
 ---
 
-Entwickelt mit ❤️ für die Home Assistant Community
+Developed with ❤️ for the Home Assistant Community
 
-P.S. mit freundlicher Unterstüzung von Claude
+P.S. with kind support from Claude
