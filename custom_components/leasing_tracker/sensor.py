@@ -316,13 +316,24 @@ class LeasingTrackerSensor(SensorEntity):
             return
 
         try:
-            current_km = float(current_km_state.state)
+            current_km_raw = float(current_km_state.state)
         except (ValueError, TypeError):
             self._attr_native_value = None
             self._attr_available = False
             return
 
         self._attr_available = True
+        
+        # Check sensor's unit and convert if needed
+        sensor_unit = current_km_state.attributes.get('unit_of_measurement', 'km')
+        
+        # Convert sensor value to km (internal calculations use km)
+        if sensor_unit in ['mi', 'miles', 'mile']:
+            # Sensor is in miles, convert to km
+            current_km = current_km_raw * MILES_TO_KM
+        else:
+            # Sensor is in km (or no unit specified, assume km)
+            current_km = current_km_raw
 
         # Get config values
         start_date = datetime.fromisoformat(self._entry.data[CONF_START_DATE])

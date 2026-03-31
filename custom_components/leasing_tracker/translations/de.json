@@ -10,7 +10,7 @@
           "start_date": "Start-Datum des Leasings",
           "end_date": "End-Datum des Leasings",
           "start_km": "Kilometerstand bei Start",
-          "km_per_year": "Erlaubte Kilometer pro Jahr",
+          "km_per_year": "Erlaubte Strecke pro Jahr",
           "unit_system": "Einheitensystem"
         }
       }
@@ -34,7 +34,7 @@
           "start_date": "Start-Datum des Leasings",
           "end_date": "End-Datum des Leasings",
           "start_km": "Kilometerstand bei Start",
-          "km_per_year": "Erlaubte Kilometer pro Jahr",
+          "km_per_year": "Erlaubte Strecke pro Jahr",
           "unit_system": "Einheitensystem"
         }
       }
