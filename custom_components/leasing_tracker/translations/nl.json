@@ -6,11 +6,11 @@
         "description": "Voer de details van uw leasecontract in.",
         "data": {
           "name": "Naam",
-          "current_km_entity": "Huidige Kilometerstand (Sensor)",
+          "current_km_entity": "Huidige kilometerstand (Sensor)",
           "start_date": "Startdatum lease",
           "end_date": "Einddatum lease",
-          "start_km": "Kilometerstand bij Start",
-          "km_per_year": "Toegestane Afstand per Jaar"
+          "start_km": "Kilometerstand bij start",
+          "km_per_year": "Toegestane kilometers per jaar"
         }
       }
     },
@@ -29,11 +29,11 @@
         "description": "Werk de instellingen van uw Leasing Tracker bij.",
         "data": {
           "name": "Naam",
-          "current_km_entity": "Huidige Kilometerstand (Sensor)",
+          "current_km_entity": "Huidige kilometerstand (Sensor)",
           "start_date": "Startdatum lease",
           "end_date": "Einddatum lease",
-          "start_km": "Kilometerstand bij Start",
-          "km_per_year": "Toegestane Afstand per Jaar"
+          "start_km": "Kilometerstand bij start",
+          "km_per_year": "Toegestane kilometers per jaar"
         }
       }
     },
