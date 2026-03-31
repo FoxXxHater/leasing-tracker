@@ -216,13 +216,13 @@ class LeasingTrackerSensor(SensorEntity):
             SENSOR_KM_PER_DAY_AVERAGE: {
                 "translation_key": "km_per_day_average",
                 "icon": "mdi:chart-line",
-                "unit": "km/day",
+                "unit": "km/day" if self._is_metric else "mi/day",
                 "state_class": SensorStateClass.MEASUREMENT,
             },
             SENSOR_KM_PER_MONTH_AVERAGE: {
                 "translation_key": "km_per_month_average",
                 "icon": "mdi:chart-bar",
-                "unit": "km/month",
+                "unit": "km/month" if self._is_metric else "mi/month",
                 "state_class": SensorStateClass.MEASUREMENT,
             },
             SENSOR_ALLOWED_KM_TOTAL: {
@@ -327,8 +327,16 @@ class LeasingTrackerSensor(SensorEntity):
         # Get config values
         start_date = datetime.fromisoformat(self._entry.data[CONF_START_DATE])
         end_date = datetime.fromisoformat(self._entry.data[CONF_END_DATE])
-        start_km = self._entry.data[CONF_START_KM]
-        km_per_year = self._entry.data[CONF_KM_PER_YEAR]
+        start_km_config = self._entry.data[CONF_START_KM]
+        km_per_year_config = self._entry.data[CONF_KM_PER_YEAR]
+        
+        # Convert from miles to km if imperial
+        if not self._is_metric:
+            start_km = start_km_config * MILES_TO_KM
+            km_per_year = km_per_year_config * MILES_TO_KM
+        else:
+            start_km = start_km_config
+            km_per_year = km_per_year_config
 
         # Calculate values
         now = datetime.now()

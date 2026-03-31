@@ -6,11 +6,11 @@
         "description": "Enter the details of your leasing contract.",
         "data": {
           "name": "Name",
-          "current_km_entity": "Current Mileage (Sensor)",
+          "current_km_entity": "Current Odometer (Sensor)",
           "start_date": "Leasing Start Date",
           "end_date": "Leasing End Date",
-          "start_km": "Mileage at Start",
-          "km_per_year": "Allowed Kilometers per Year",
+          "start_km": "Odometer at Start",
+          "km_per_year": "Allowed Distance per Year",
           "unit_system": "Unit System"
         }
       }
@@ -30,11 +30,11 @@
         "description": "Update the settings for your Leasing Tracker.",
         "data": {
           "name": "Name",
-          "current_km_entity": "Current Mileage (Sensor)",
+          "current_km_entity": "Current Odometer (Sensor)",
           "start_date": "Leasing Start Date",
           "end_date": "Leasing End Date",
-          "start_km": "Mileage at Start",
-          "km_per_year": "Allowed Kilometers per Year",
+          "start_km": "Odometer at Start",
+          "km_per_year": "Allowed Distance per Year",
           "unit_system": "Unit System"
         }
       }

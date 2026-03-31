@@ -1,6 +1,22 @@
 # Changelog
 
-## [1.2.0] - 30-03-2025
+## [1.2.2] - 31-03-2026
+
+### Fixed
+- 🐛 **Average sensor units now respect unit system**
+  - Fixed: "Average Distance per Day" showing "km/day" even when Imperial selected
+  - Fixed: "Average Distance per Month" showing "km/month" even when Imperial selected
+  - Now correctly shows "mi/day" and "mi/month" for Imperial units
+
+## [1.2.1] - 31-03-2026
+
+### Changed
+- 🔄 **Unit-neutral labels in setup dialog**
+  - Changed "Allowed Kilometers per Year" → "Allowed Distance per Year"
+  - Labels now work for both km and miles
+
+
+## [1.2.0] - 30-03-2026
 
 ### Added
 - 🇺🇸 **Imperial Units Support (Miles)**
