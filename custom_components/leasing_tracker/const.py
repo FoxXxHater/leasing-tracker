@@ -11,9 +11,19 @@ CONF_START_KM = "start_km"
 CONF_KM_PER_YEAR = "km_per_year"
 CONF_UNIT_SYSTEM = "unit_system"  # "metric" or "imperial"
 CONF_EXCESS_PRICE = "excess_price"  # price per excess km/mile over the allowance
-CONF_CURRENCY = "currency"  # "EUR", "USD", "GBP", "CHF"
+CONF_CURRENCY = "currency"  # "eur", "usd", "gbp", "chf" (lowercase selector keys)
 
-# Currency symbols
+# Map lowercase config values to ISO 4217 currency codes.
+# HA's monetary device_class expects the ISO code (e.g. "EUR"), while the
+# config-flow selector keys must be lowercase ([a-z0-9-_]+) to pass hassfest.
+CURRENCY_ISO_CODES = {
+    "eur": "EUR",
+    "usd": "USD",
+    "gbp": "GBP",
+    "chf": "CHF",
+}
+
+# Currency symbols (keyed by ISO code)
 CURRENCY_SYMBOLS = {
     "EUR": "€",
     "USD": "$",

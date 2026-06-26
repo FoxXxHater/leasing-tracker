@@ -29,6 +29,7 @@ from .const import (
     CONF_NAME,
     CONF_START_DATE,
     CONF_START_KM,
+    CURRENCY_ISO_CODES,
     CURRENCY_SYMBOLS,
     DOMAIN,
     SENSOR_ALLOWED_KM_PER_MONTH,
@@ -171,7 +172,10 @@ class LeasingTrackerSensor(SensorEntity):
         # Excess mileage pricing (optional). Price is per displayed distance
         # unit (km or miles) — the same unit the user sees in the UI.
         self._excess_price = float(entry.data.get(CONF_EXCESS_PRICE, 0.0) or 0.0)
-        self._currency = entry.data.get(CONF_CURRENCY, "EUR")
+        # The config selector stores a lowercase key (e.g. "eur"); map it to the
+        # ISO 4217 code (e.g. "EUR") that HA's monetary device_class expects.
+        currency_key = str(entry.data.get(CONF_CURRENCY, "eur")).lower()
+        self._currency = CURRENCY_ISO_CODES.get(currency_key, "EUR")
         self._currency_symbol = CURRENCY_SYMBOLS.get(self._currency, self._currency)
 
         # Detect unit system from the source entity (preferred). If the source

@@ -86,9 +86,9 @@ class LeasingTrackerConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                         mode=selector.NumberSelectorMode.BOX,
                     )
                 ),
-                vol.Required(CONF_CURRENCY, default="EUR"): selector.SelectSelector(
+                vol.Required(CONF_CURRENCY, default="eur"): selector.SelectSelector(
                     selector.SelectSelectorConfig(
-                        options=["EUR", "USD", "GBP", "CHF"],
+                        options=["eur", "usd", "gbp", "chf"],
                         translation_key="currency",
                     )
                 ),
@@ -189,10 +189,10 @@ class LeasingTrackerOptionsFlow(config_entries.OptionsFlow):
                 ),
                 vol.Required(
                     CONF_CURRENCY,
-                    default=self._config_entry.data.get(CONF_CURRENCY, "EUR"),
+                    default=self._config_entry.data.get(CONF_CURRENCY, "eur"),
                 ): selector.SelectSelector(
                     selector.SelectSelectorConfig(
-                        options=["EUR", "USD", "GBP", "CHF"],
+                        options=["eur", "usd", "gbp", "chf"],
                         translation_key="currency",
                     )
                 ),
