@@ -13,8 +13,10 @@ from homeassistant.helpers import selector
 import homeassistant.helpers.config_validation as cv
 
 from .const import (
+    CONF_CURRENCY,
     CONF_CURRENT_KM_ENTITY,
     CONF_END_DATE,
+    CONF_EXCESS_PRICE,
     CONF_KM_PER_YEAR,
     CONF_NAME,
     CONF_START_DATE,
@@ -75,6 +77,19 @@ class LeasingTrackerConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                     selector.SelectSelectorConfig(
                         options=["metric", "imperial"],
                         translation_key="unit_system",
+                    )
+                ),
+                vol.Optional(CONF_EXCESS_PRICE, default=0.0): selector.NumberSelector(
+                    selector.NumberSelectorConfig(
+                        min=0,
+                        step=0.01,
+                        mode=selector.NumberSelectorMode.BOX,
+                    )
+                ),
+                vol.Required(CONF_CURRENCY, default="EUR"): selector.SelectSelector(
+                    selector.SelectSelectorConfig(
+                        options=["EUR", "USD", "GBP", "CHF"],
+                        translation_key="currency",
                     )
                 ),
             }
@@ -160,6 +175,25 @@ class LeasingTrackerOptionsFlow(config_entries.OptionsFlow):
                     selector.SelectSelectorConfig(
                         options=["metric", "imperial"],
                         translation_key="unit_system",
+                    )
+                ),
+                vol.Optional(
+                    CONF_EXCESS_PRICE,
+                    default=self._config_entry.data.get(CONF_EXCESS_PRICE, 0.0),
+                ): selector.NumberSelector(
+                    selector.NumberSelectorConfig(
+                        min=0,
+                        step=0.01,
+                        mode=selector.NumberSelectorMode.BOX,
+                    )
+                ),
+                vol.Required(
+                    CONF_CURRENCY,
+                    default=self._config_entry.data.get(CONF_CURRENCY, "EUR"),
+                ): selector.SelectSelector(
+                    selector.SelectSelectorConfig(
+                        options=["EUR", "USD", "GBP", "CHF"],
+                        translation_key="currency",
                     )
                 ),
             }

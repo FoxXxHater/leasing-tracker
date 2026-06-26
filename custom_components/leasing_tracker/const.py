@@ -10,6 +10,16 @@ CONF_END_DATE = "end_date"
 CONF_START_KM = "start_km"
 CONF_KM_PER_YEAR = "km_per_year"
 CONF_UNIT_SYSTEM = "unit_system"  # "metric" or "imperial"
+CONF_EXCESS_PRICE = "excess_price"  # price per excess km/mile over the allowance
+CONF_CURRENCY = "currency"  # "EUR", "USD", "GBP", "CHF"
+
+# Currency symbols
+CURRENCY_SYMBOLS = {
+    "EUR": "€",
+    "USD": "$",
+    "GBP": "£",
+    "CHF": "CHF",
+}
 
 # Sensor types
 SENSOR_REMAINING_KM_TOTAL = "remaining_km_total"
@@ -34,3 +44,7 @@ SENSOR_DAYS_TOTAL = "days_total"
 SENSOR_PROGRESS_PERCENTAGE = "progress_percentage"
 SENSOR_KM_DIFFERENCE = "km_difference"
 SENSOR_STATUS = "status"
+SENSOR_END_DATE = "end_date"
+SENSOR_ESTIMATED_KM_LEASE_END = "estimated_km_lease_end"
+SENSOR_ESTIMATED_EXCESS_KM = "estimated_excess_km"
+SENSOR_ESTIMATED_EXCESS_COST = "estimated_excess_cost"

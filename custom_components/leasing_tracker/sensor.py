@@ -17,21 +17,29 @@ from homeassistant.helpers import entity_registry as er
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.event import async_track_state_change_event
+from homeassistant.util import dt as dt_util
 
 from .const import (
     CONF_UNIT_SYSTEM,
+    CONF_CURRENCY,
     CONF_CURRENT_KM_ENTITY,
     CONF_END_DATE,
+    CONF_EXCESS_PRICE,
     CONF_KM_PER_YEAR,
     CONF_NAME,
     CONF_START_DATE,
     CONF_START_KM,
+    CURRENCY_SYMBOLS,
     DOMAIN,
     SENSOR_ALLOWED_KM_PER_MONTH,
     SENSOR_ALLOWED_KM_THIS_MONTH,
     SENSOR_ALLOWED_KM_THIS_YEAR,
     SENSOR_ALLOWED_KM_TOTAL,
     SENSOR_DAYS_TOTAL,
+    SENSOR_END_DATE,
+    SENSOR_ESTIMATED_EXCESS_COST,
+    SENSOR_ESTIMATED_EXCESS_KM,
+    SENSOR_ESTIMATED_KM_LEASE_END,
     SENSOR_ESTIMATED_KM_MONTH_END,
     SENSOR_ESTIMATED_KM_YEAR_END,
     SENSOR_KM_DIFFERENCE,
@@ -95,6 +103,10 @@ async def async_setup_entry(
         LeasingTrackerSensor(hass, entry, name, SENSOR_PROGRESS_PERCENTAGE),
         LeasingTrackerSensor(hass, entry, name, SENSOR_KM_DIFFERENCE),
         LeasingTrackerSensor(hass, entry, name, SENSOR_STATUS),
+        LeasingTrackerSensor(hass, entry, name, SENSOR_END_DATE),
+        LeasingTrackerSensor(hass, entry, name, SENSOR_ESTIMATED_KM_LEASE_END),
+        LeasingTrackerSensor(hass, entry, name, SENSOR_ESTIMATED_EXCESS_KM),
+        LeasingTrackerSensor(hass, entry, name, SENSOR_ESTIMATED_EXCESS_COST),
     ]
 
     async_add_entities(sensors, True)
@@ -155,6 +167,12 @@ class LeasingTrackerSensor(SensorEntity):
         self._fallback_is_metric = (
             entry.data.get(CONF_UNIT_SYSTEM, "metric") == "metric"
         )
+
+        # Excess mileage pricing (optional). Price is per displayed distance
+        # unit (km or miles) — the same unit the user sees in the UI.
+        self._excess_price = float(entry.data.get(CONF_EXCESS_PRICE, 0.0) or 0.0)
+        self._currency = entry.data.get(CONF_CURRENCY, "EUR")
+        self._currency_symbol = CURRENCY_SYMBOLS.get(self._currency, self._currency)
 
         # Detect unit system from the source entity (preferred). If the source
         # entity isn't available yet, this falls back to the manual choice.
@@ -360,6 +378,31 @@ class LeasingTrackerSensor(SensorEntity):
                 "icon": "mdi:information-outline",
                 "device_class": SensorDeviceClass.ENUM,
                 "options": ["on_plan", "over_plan", "significantly_over_plan", "under_plan"],
+            },
+            SENSOR_END_DATE: {
+                "translation_key": "end_date",
+                "icon": "mdi:calendar-end",
+                "device_class": SensorDeviceClass.TIMESTAMP,
+            },
+            SENSOR_ESTIMATED_KM_LEASE_END: {
+                "translation_key": "estimated_km_lease_end",
+                "icon": "mdi:map-marker-distance",
+                "unit": distance_unit,
+                "device_class": SensorDeviceClass.DISTANCE,
+                "state_class": SensorStateClass.MEASUREMENT,
+            },
+            SENSOR_ESTIMATED_EXCESS_KM: {
+                "translation_key": "estimated_excess_km",
+                "icon": "mdi:alert-circle-outline",
+                "unit": distance_unit,
+                "device_class": SensorDeviceClass.DISTANCE,
+                "state_class": SensorStateClass.MEASUREMENT,
+            },
+            SENSOR_ESTIMATED_EXCESS_COST: {
+                "translation_key": "estimated_excess_cost",
+                "icon": "mdi:cash-multiple",
+                "unit": self._currency,
+                "device_class": SensorDeviceClass.MONETARY,
             },
         }
 
@@ -619,6 +662,38 @@ class LeasingTrackerSensor(SensorEntity):
         # Remaining months
         remaining_months = remaining_days / 30.44
 
+        # --- Lease-end projection (all in km internally) ---
+        # Estimated total odometer reading at the end of the lease, based on
+        # the average distance per day driven so far.
+        if remaining_days > 0:
+            estimated_km_lease_end = current_km + (remaining_days * km_per_day)
+        else:
+            # Lease already ended -> use the current reading
+            estimated_km_lease_end = current_km
+
+        # Estimated total distance driven over the whole lease.
+        estimated_total_driven = estimated_km_lease_end - start_km
+
+        # Estimated excess distance = projected total driven minus the total
+        # allowance. Clamped at 0 (no negative excess).
+        estimated_excess_km = estimated_total_driven - allowed_km_total
+        if estimated_excess_km < 0:
+            estimated_excess_km = 0
+
+        # Estimated excess cost. The price was entered per DISPLAY unit
+        # (km or miles), so convert the excess to the display unit first.
+        if not self._is_metric:
+            estimated_excess_display = estimated_excess_km * KM_TO_MILES
+        else:
+            estimated_excess_display = estimated_excess_km
+        estimated_excess_cost = estimated_excess_display * self._excess_price
+
+        # The end_date is a naive datetime (local midnight). TIMESTAMP device
+        # class requires a timezone-aware datetime. start_of_local_day returns
+        # midnight of the given date in HA's configured timezone, correctly
+        # handling DST and historical offsets (unlike a plain tzinfo replace).
+        end_date_localized = dt_util.start_of_local_day(end_date.date())
+
         # Set value based on sensor type (distance values still in km here)
         value_map = {
             SENSOR_REMAINING_KM_TOTAL: remaining_km_total,
@@ -643,6 +718,10 @@ class LeasingTrackerSensor(SensorEntity):
             SENSOR_PROGRESS_PERCENTAGE: round(progress, 1),
             SENSOR_KM_DIFFERENCE: km_difference,
             SENSOR_STATUS: status,
+            SENSOR_END_DATE: end_date_localized,
+            SENSOR_ESTIMATED_KM_LEASE_END: estimated_km_lease_end,
+            SENSOR_ESTIMATED_EXCESS_KM: estimated_excess_km,
+            SENSOR_ESTIMATED_EXCESS_COST: round(estimated_excess_cost, 2),
         }
 
         value = value_map.get(self._sensor_type)
@@ -665,6 +744,8 @@ class LeasingTrackerSensor(SensorEntity):
             SENSOR_ALLOWED_KM_THIS_YEAR,
             SENSOR_ALLOWED_KM_THIS_MONTH,
             SENSOR_KM_DIFFERENCE,
+            SENSOR_ESTIMATED_KM_LEASE_END,
+            SENSOR_ESTIMATED_EXCESS_KM,
         }
 
         if self._sensor_type in distance_sensors and isinstance(value, (int, float)):
