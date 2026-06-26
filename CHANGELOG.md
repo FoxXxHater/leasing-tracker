@@ -1,6 +1,16 @@
 # Changelog
 
-## [1.4.0] - 26-06-2026
+## [1.4.1] - 26-06-2026
+
+### Fixed
+- 🐛 **hassfest validation error** — the currency selector used uppercase option keys (`EUR`, `USD`, …), which are rejected by Home Assistant's translation validator (keys must match `[a-z0-9-_]+`). The keys are now lowercase (`eur`, `usd`, `gbp`, `chf`) and mapped internally to the ISO 4217 code the monetary sensor needs.
+
+### Technical
+- New `CURRENCY_ISO_CODES` mapping translates the lowercase selector value to the ISO code (e.g. `eur` → `EUR`)
+- The cost sensor still reports the correct ISO currency code as its unit
+- No user-facing change: existing configs default to EUR; pick the currency again in options if it was set before
+
+## [1.4.0] - 03-05-2026
 
 ### Added
 - 🆕 **Four new sensors**
@@ -131,53 +141,53 @@
 
 ## [1.1.3] - 04-02-2026
 
-- "OptionsFlow" Fehler behoben
-- Fehler beim Laden gespeicherter Daten behoben
-- Webserver stürzt nicht mehr ab bei änderungen
+- Fixed "OptionsFlow" error
+- Fixed error when loading saved data
+- Web server no longer crashes on changes
 
 ## [1.1.2] - 04-02-2026
 
-- Weitere Änderungen an der Grafiken in HA
+- Further changes to the graphics in HA
 
 ## [1.1.1] - 04-02-2026
 
-### Hinzugefügt
-- **Bilder und Logos für das Repo und HACS**
+### Added
+- **Images and logos for the repo and HACS**
 
 ## [1.1.0] - 04-02-2026
 
-### Hinzugefügt
-- **Neue Sensoren für tatsächliche Werte (ohne Schätzung):**
-  - `Verbleibende KM diesen Monat` - Monatslimit minus bereits gefahrene KM im Monat
-  - `Verbleibende KM dieses Jahr` - Jahreslimit minus bereits gefahrene KM im Jahr
-  - `Gefahrene KM diesen Monat` - Tatsächlich im aktuellen Monat gefahrene KM
-  - `Gefahrene KM dieses Jahr` - Tatsächlich im aktuellen Jahr gefahrene KM
-  - `Erlaubte KM dieses Jahr` - Für das aktuelle Kalenderjahr erlaubte KM
-  - `Erlaubte KM diesen Monat` - Für den aktuellen Monat erlaubte KM
+### Added
+- **New sensors for actual values (without estimation):**
+  - `Remaining KM This Month` - Monthly limit minus KM already driven this month
+  - `Remaining KM This Year` - Yearly limit minus KM already driven this year
+  - `Distance Driven This Month` - Actual KM driven in the current month
+  - `Distance Driven This Year` - Actual KM driven in the current year
+  - `Allowed KM This Year` - KM allowed for the current calendar year
+  - `Allowed KM This Month` - KM allowed for the current month
 
-- **Neue Schätzungs-Sensoren:**
-  - `Schätzung Verbleibende KM diesen Monat` - Basierend auf Durchschnittsverbrauch
-  - `Schätzung Verbleibende KM dieses Jahr` - Basierend auf Durchschnittsverbrauch
-  - `Schätzung KM am Monatsende` - Voraussichtlicher Stand am Monatsende
-  - `Schätzung KM am Jahresende` - Voraussichtlicher Stand am Jahresende
+- **New estimation sensors:**
+  - `Estimated Remaining KM This Month` - Based on average usage
+  - `Estimated Remaining KM This Year` - Based on average usage
+  - `Estimated KM at Month End` - Projected reading at the end of the month
+  - `Estimated KM at Year End` - Projected reading at the end of the year
 
-### Geändert
-- **Umbenennungen zur besseren Klarheit:**
-  - Alte "Verbleibende KM diesen Monat" → "Schätzung Verbleibende KM diesen Monat"
-  - Alte "Verbleibende KM dieses Jahr" → "Schätzung Verbleibende KM dieses Jahr"
-  - Alle Schätzungen sind jetzt klar als "Schätzung" gekennzeichnet
+### Changed
+- **Renamings for better clarity:**
+  - Old "Remaining KM This Month" → "Estimated Remaining KM This Month"
+  - Old "Remaining KM This Year" → "Estimated Remaining KM This Year"
+  - All estimates are now clearly marked as "Estimated"
 
-- **Verbesserte Berechnungen:**
-  - Monatliche Werte basieren nun auf tatsächlich gefahrenen KM im Monat
-  - Jährliche Werte basieren nun auf tatsächlich gefahrenen KM im Jahr
-  - Genauere Berechnung der erlaubten KM pro Monat/Jahr
-  - Berücksichtigung von anteiligen Monaten/Jahren bei Leasingbeginn
+- **Improved calculations:**
+  - Monthly values are now based on KM actually driven in the month
+  - Yearly values are now based on KM actually driven in the year
+  - More accurate calculation of allowed KM per month/year
+  - Accounts for partial months/years at the start of the lease
 
 ## [1.0.0] - 04-02-2026
 
 ### Initial Release
-- Erste Version des Leasing Trackers
-- 14 Basis-Sensoren
-- UI-Konfiguration
-- HACS-Kompatibilität
-- Deutsche und englische Übersetzungen
+- First version of the Leasing Tracker
+- 14 base sensors
+- UI configuration
+- HACS compatibility
+- German and English translations
