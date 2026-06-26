@@ -145,10 +145,10 @@
     },
     "currency": {
       "options": {
-        "EUR": "Euro (€)",
-        "USD": "US Dollar ($)",
-        "GBP": "British Pound (£)",
-        "CHF": "Swiss Franc (CHF)"
+        "eur": "Euro (€)",
+        "usd": "US Dollar ($)",
+        "gbp": "British Pound (£)",
+        "chf": "Swiss Franc (CHF)"
       }
     }
   }
