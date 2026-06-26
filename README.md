@@ -36,19 +36,22 @@ A huge Thanks to all great Dev out there!
 ## ⚠️ BREAKING CHANGES?
 - You have to delete the old entities and create it new!
 
-## ✨ What's New in v1.2.0
+## ✨ What's New in v1.4.0
 
-🇺🇸 **Imperial Units (Miles) Support!**
-- Choose between Metric (km) or Imperial (miles) during setup
-- All sensors automatically show values in your preferred unit
-- Perfect for US, UK, and other imperial-using countries
-
-✅ **Translation Fixed!**
-- Values now properly translate
+**Four new sensors**
+  - **Lease End Date** — a timestamp sensor showing your configured lease end date, so you can use it in dashboards and automations
+  - **Estimated Odometer at Lease End** — projected total odometer reading at the end of the lease, based on your average distance driven so far
+  - **Estimated Excess Distance** — projected distance over your total allowance at lease end (0 if you stay within the allowance)
+  - **Estimated Excess Cost** — projected extra charges at lease end, calculated from the excess distance and your price per excess unit
+- 💶 **Excess mileage pricing**
+  - New optional field in setup and options: price per excess km/mile over the allowance
+  - The price is interpreted in the same unit shown in the UI (km or miles)
+- 💱 **Currency selection**
+  - New field to choose the currency for the cost sensor: Euro (€), US Dollar ($), British Pound (£) or Swiss Franc (CHF)
 
 ## ✨ Features
 
-- ✅ **22 automatic sensors** - Comprehensive monitoring of all leasing data
+- ✅ **26 automatic sensors** - Comprehensive monitoring of all leasing data
 - ✅ **Actual + estimated values**
 - ✅ **UI configuration** - No YAML configuration needed
 - ✅ **Multiple vehicles** - Any number of leasing contracts in parallel

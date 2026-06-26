@@ -1,6 +1,30 @@
 # Changelog
 
-## [1.3.0] - 03-05-2026 ⚠️ BREAKING CHANGES
+## [1.4.0] - 26-06-2026
+
+### Added
+- 🆕 **Four new sensors**
+  - **Lease End Date** — a timestamp sensor showing your configured lease end date, so you can use it in dashboards and automations
+  - **Estimated Odometer at Lease End** — projected total odometer reading at the end of the lease, based on your average distance driven so far
+  - **Estimated Excess Distance** — projected distance over your total allowance at lease end (0 if you stay within the allowance)
+  - **Estimated Excess Cost** — projected extra charges at lease end, calculated from the excess distance and your price per excess unit
+- 💶 **Excess mileage pricing**
+  - New optional field in setup and options: price per excess km/mile over the allowance
+  - The price is interpreted in the same unit shown in the UI (km or miles)
+- 💱 **Currency selection**
+  - New field to choose the currency for the cost sensor: Euro (€), US Dollar ($), British Pound (£) or Swiss Franc (CHF)
+
+### Changed
+- 🌍 **Translations** updated for all new fields, the currency selector and the new sensors (English, German, Dutch)
+
+### Technical
+- New config keys: `excess_price`, `currency`
+- The excess cost is projected to lease end (not the current overage); excess distance is clamped to 0 when within allowance
+- Cost is computed in the display unit (price-per-mile × excess-in-miles for imperial), so it stays consistent with what the user entered
+- `Estimated Excess Cost` uses `device_class: monetary` with the ISO currency code as unit (HA requires the ISO code, not the symbol) and no `state_class` (monetary does not allow `measurement`)
+- `Lease End Date` uses `device_class: timestamp` with a timezone-aware datetime via `dt_util.start_of_local_day()`
+
+## [1.3.0] - 26-06-2026 ⚠️ BREAKING CHANGES
 
 **You have to delete the old entities and create it new!**
 
