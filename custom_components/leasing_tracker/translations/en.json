@@ -11,7 +11,9 @@
           "end_date": "Leasing End Date",
           "start_km": "Odometer at Start",
           "km_per_year": "Allowed Distance per Year",
-          "unit_system": "Unit System"
+          "unit_system": "Unit System",
+          "excess_price": "Price per excess distance unit (over allowance)",
+          "currency": "Currency"
         }
       }
     },
@@ -35,7 +37,9 @@
           "end_date": "Leasing End Date",
           "start_km": "Odometer at Start",
           "km_per_year": "Allowed Distance per Year",
-          "unit_system": "Unit System"
+          "unit_system": "Unit System",
+          "excess_price": "Price per excess distance unit (over allowance)",
+          "currency": "Currency"
         }
       }
     },
@@ -117,6 +121,18 @@
           "significantly_over_plan": "Significantly Over Plan",
           "under_plan": "Under Plan"
         }
+      },
+      "end_date": {
+        "name": "Lease End Date"
+      },
+      "estimated_km_lease_end": {
+        "name": "Estimated Odometer at Lease End"
+      },
+      "estimated_excess_km": {
+        "name": "Estimated Excess Distance"
+      },
+      "estimated_excess_cost": {
+        "name": "Estimated Excess Cost"
       }
     }
   },
@@ -125,6 +141,14 @@
       "options": {
         "metric": "Metric (km)",
         "imperial": "Imperial (miles)"
+      }
+    },
+    "currency": {
+      "options": {
+        "EUR": "Euro (€)",
+        "USD": "US Dollar ($)",
+        "GBP": "British Pound (£)",
+        "CHF": "Swiss Franc (CHF)"
       }
     }
   }

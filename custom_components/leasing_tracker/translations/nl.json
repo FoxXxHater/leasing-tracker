@@ -10,7 +10,9 @@
           "start_date": "Startdatum lease",
           "end_date": "Einddatum lease",
           "start_km": "Kilometerstand bij Start",
-          "km_per_year": "Toegestane Afstand per Jaar"
+          "km_per_year": "Toegestane Afstand per Jaar",
+          "excess_price": "Prijs per extra afstandseenheid (boven limiet)",
+          "currency": "Valuta"
         }
       }
     },
@@ -33,7 +35,9 @@
           "start_date": "Startdatum lease",
           "end_date": "Einddatum lease",
           "start_km": "Kilometerstand bij Start",
-          "km_per_year": "Toegestane Afstand per Jaar"
+          "km_per_year": "Toegestane Afstand per Jaar",
+          "excess_price": "Prijs per extra afstandseenheid (boven limiet)",
+          "currency": "Valuta"
         }
       }
     },
@@ -115,6 +119,28 @@
           "significantly_over_plan": "Ver Boven Plan",
           "under_plan": "Onder Plan"
         }
+      },
+      "end_date": {
+        "name": "Einddatum Lease"
+      },
+      "estimated_km_lease_end": {
+        "name": "Geschatte Kilometerstand bij Einde Lease"
+      },
+      "estimated_excess_km": {
+        "name": "Geschatte Extra Afstand"
+      },
+      "estimated_excess_cost": {
+        "name": "Geschatte Extra Kosten"
+      }
+    }
+  },
+  "selector": {
+    "currency": {
+      "options": {
+        "EUR": "Euro (€)",
+        "USD": "US Dollar ($)",
+        "GBP": "British Pound (£)",
+        "CHF": "Swiss Franc (CHF)"
       }
     }
   }

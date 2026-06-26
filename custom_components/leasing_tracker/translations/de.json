@@ -11,7 +11,9 @@
           "end_date": "End-Datum des Leasings",
           "start_km": "Kilometerstand bei Start",
           "km_per_year": "Erlaubte Strecke pro Jahr",
-          "unit_system": "Einheitensystem"
+          "unit_system": "Einheitensystem",
+          "excess_price": "Preis pro Mehr-Strecke (bei Überschreitung)",
+          "currency": "Währung"
         }
       }
     },
@@ -35,7 +37,9 @@
           "end_date": "End-Datum des Leasings",
           "start_km": "Kilometerstand bei Start",
           "km_per_year": "Erlaubte Strecke pro Jahr",
-          "unit_system": "Einheitensystem"
+          "unit_system": "Einheitensystem",
+          "excess_price": "Preis pro Mehr-Strecke (bei Überschreitung)",
+          "currency": "Währung"
         }
       }
     },
@@ -117,6 +121,18 @@
           "significantly_over_plan": "Deutlich über Plan",
           "under_plan": "Unter Plan"
         }
+      },
+      "end_date": {
+        "name": "Leasing-Enddatum"
+      },
+      "estimated_km_lease_end": {
+        "name": "Geschätzter Kilometerstand am Leasingende"
+      },
+      "estimated_excess_km": {
+        "name": "Geschätzte Mehr-Strecke"
+      },
+      "estimated_excess_cost": {
+        "name": "Geschätzte Mehrkosten"
       }
     }
   },
@@ -125,6 +141,14 @@
       "options": {
         "metric": "Metrisch (km)",
         "imperial": "Imperial (Meilen)"
+      }
+    },
+    "currency": {
+      "options": {
+        "EUR": "Euro (€)",
+        "USD": "US Dollar ($)",
+        "GBP": "British Pound (£)",
+        "CHF": "Swiss Franc (CHF)"
       }
     }
   }
