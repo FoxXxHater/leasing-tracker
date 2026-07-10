@@ -12,8 +12,22 @@
           "start_km": "Odometer at Start",
           "km_per_year": "Allowed Distance per Year",
           "unit_system": "Unit System",
-          "excess_price": "Price per excess distance unit (over allowance)",
-          "currency": "Currency"
+          "currency": "Currency",
+          "has_tolerance": "Contract has a tolerance / goodwill band",
+          "has_excess_charge": "Charges apply for excess distance",
+          "has_refund": "Refund is paid for under-driven distance"
+        }
+      },
+      "contract": {
+        "title": "Contract terms",
+        "description": "Enter the details for the contract terms you selected. All distances use the same unit shown on your sensors.",
+        "data": {
+          "tolerance_over": "Tolerance above the allowance (not charged)",
+          "tolerance_under": "Tolerance below the allowance (not refunded)",
+          "excess_price": "Price per excess distance unit",
+          "refund_price": "Refund per under-driven distance unit",
+          "refund_limit_mode": "Refund limit",
+          "max_refund_distance": "Maximum refundable distance (only used when limited)"
         }
       }
     },
@@ -37,8 +51,22 @@
           "end_date": "Lease End Date",
           "start_km": "Mileage at Start",
           "km_per_year": "Allowed Kilometers per Year",
-          "excess_price": "Price per excess distance unit (over allowance)",
-          "currency": "Currency"
+          "currency": "Currency",
+          "has_tolerance": "Contract has a tolerance / goodwill band",
+          "has_excess_charge": "Charges apply for excess distance",
+          "has_refund": "Refund is paid for under-driven distance"
+        }
+      },
+      "contract": {
+        "title": "Contract terms",
+        "description": "Enter the details for the contract terms you selected. All distances use the same unit shown on your sensors.",
+        "data": {
+          "tolerance_over": "Tolerance above the allowance (not charged)",
+          "tolerance_under": "Tolerance below the allowance (not refunded)",
+          "excess_price": "Price per excess distance unit",
+          "refund_price": "Refund per under-driven distance unit",
+          "refund_limit_mode": "Refund limit",
+          "max_refund_distance": "Maximum refundable distance (only used when limited)"
         }
       }
     },
@@ -60,6 +88,12 @@
         "usd": "US Dollar ($)",
         "gbp": "British Pound (£)",
         "chf": "Swiss Franc (CHF)"
+      }
+    },
+    "refund_limit_mode": {
+      "options": {
+        "unlimited": "No limit",
+        "limited": "Limited to a maximum"
       }
     }
   }

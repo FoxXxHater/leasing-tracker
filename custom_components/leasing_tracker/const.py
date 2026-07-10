@@ -13,6 +13,31 @@ CONF_UNIT_SYSTEM = "unit_system"  # "metric" or "imperial"
 CONF_EXCESS_PRICE = "excess_price"  # price per excess km/mile over the allowance
 CONF_CURRENCY = "currency"  # "eur", "usd", "gbp", "chf" (lowercase selector keys)
 
+# --- Contract terms (asked in step 1, filled in step 2) ---
+# Gating questions
+CONF_HAS_TOLERANCE = "has_tolerance"  # contract has a goodwill / tolerance band
+CONF_HAS_EXCESS_CHARGE = "has_excess_charge"  # charges apply for excess distance
+CONF_HAS_REFUND = "has_refund"  # refund is paid for under-driven distance
+
+# Tolerance band (entered in the DISPLAY unit: km or miles)
+CONF_TOLERANCE_OVER = "tolerance_over"  # goodwill above the allowance
+CONF_TOLERANCE_UNDER = "tolerance_under"  # goodwill below the allowance
+
+# Refund terms
+CONF_REFUND_PRICE = "refund_price"  # refund per under-driven km/mile
+CONF_REFUND_LIMIT_MODE = "refund_limit_mode"  # "unlimited" or "limited"
+CONF_MAX_REFUND_DISTANCE = "max_refund_distance"  # cap when mode == "limited"
+
+# Refund limit modes (lowercase for hassfest translation keys)
+REFUND_LIMIT_UNLIMITED = "unlimited"
+REFUND_LIMIT_LIMITED = "limited"
+
+# Status thresholds used when no tolerance band is configured.
+# Expressed as a fraction of the total allowance so they scale with the
+# contract size and work identically in km and miles.
+STATUS_DEFAULT_TOLERANCE_FRACTION = 0.02  # 2% of total allowance
+STATUS_SIGNIFICANT_FRACTION = 0.05  # a further 5% -> "significantly over plan"
+
 # Map lowercase config values to ISO 4217 currency codes.
 # HA's monetary device_class expects the ISO code (e.g. "EUR"), while the
 # config-flow selector keys must be lowercase ([a-z0-9-_]+) to pass hassfest.
@@ -58,3 +83,6 @@ SENSOR_END_DATE = "end_date"
 SENSOR_ESTIMATED_KM_LEASE_END = "estimated_km_lease_end"
 SENSOR_ESTIMATED_EXCESS_KM = "estimated_excess_km"
 SENSOR_ESTIMATED_EXCESS_COST = "estimated_excess_cost"
+SENSOR_ESTIMATED_UNDER_KM = "estimated_under_km"
+SENSOR_ESTIMATED_REFUND = "estimated_refund"
+SENSOR_ESTIMATED_NET_COST = "estimated_net_cost"

@@ -11,8 +11,22 @@
           "end_date": "Einddatum lease",
           "start_km": "Kilometerstand bij Start",
           "km_per_year": "Toegestane Afstand per Jaar",
-          "excess_price": "Prijs per extra afstandseenheid (boven limiet)",
-          "currency": "Valuta"
+          "currency": "Valuta",
+          "has_tolerance": "Contract heeft een tolerantie-/coulancemarge",
+          "has_excess_charge": "Er zijn kosten voor extra afstand",
+          "has_refund": "Er is een vergoeding voor minder gereden afstand"
+        }
+      },
+      "contract": {
+        "title": "Contractvoorwaarden",
+        "description": "Voer de details in voor de geselecteerde contractvoorwaarden. Alle afstanden gebruiken dezelfde eenheid als uw sensoren.",
+        "data": {
+          "tolerance_over": "Tolerantie boven de limiet (wordt niet berekend)",
+          "tolerance_under": "Tolerantie onder de limiet (wordt niet vergoed)",
+          "excess_price": "Prijs per extra afstandseenheid",
+          "refund_price": "Vergoeding per minder gereden afstandseenheid",
+          "refund_limit_mode": "Vergoedingslimiet",
+          "max_refund_distance": "Maximaal te vergoeden afstand (alleen bij begrensd)"
         }
       }
     },
@@ -36,8 +50,22 @@
           "end_date": "Einddatum lease",
           "start_km": "Kilometerstand bij Start",
           "km_per_year": "Toegestane Afstand per Jaar",
-          "excess_price": "Prijs per extra afstandseenheid (boven limiet)",
-          "currency": "Valuta"
+          "currency": "Valuta",
+          "has_tolerance": "Contract heeft een tolerantie-/coulancemarge",
+          "has_excess_charge": "Er zijn kosten voor extra afstand",
+          "has_refund": "Er is een vergoeding voor minder gereden afstand"
+        }
+      },
+      "contract": {
+        "title": "Contractvoorwaarden",
+        "description": "Voer de details in voor de geselecteerde contractvoorwaarden. Alle afstanden gebruiken dezelfde eenheid als uw sensoren.",
+        "data": {
+          "tolerance_over": "Tolerantie boven de limiet (wordt niet berekend)",
+          "tolerance_under": "Tolerantie onder de limiet (wordt niet vergoed)",
+          "excess_price": "Prijs per extra afstandseenheid",
+          "refund_price": "Vergoeding per minder gereden afstandseenheid",
+          "refund_limit_mode": "Vergoedingslimiet",
+          "max_refund_distance": "Maximaal te vergoeden afstand (alleen bij begrensd)"
         }
       }
     },
@@ -131,6 +159,15 @@
       },
       "estimated_excess_cost": {
         "name": "Geschatte Extra Kosten"
+      },
+      "estimated_under_km": {
+        "name": "Geschatte Minder Gereden Afstand"
+      },
+      "estimated_refund": {
+        "name": "Geschatte Vergoeding"
+      },
+      "estimated_net_cost": {
+        "name": "Geschatte Netto-Afrekening"
       }
     }
   },
@@ -141,6 +178,12 @@
         "usd": "US Dollar ($)",
         "gbp": "British Pound (£)",
         "chf": "Swiss Franc (CHF)"
+      }
+    },
+    "refund_limit_mode": {
+      "options": {
+        "unlimited": "Geen limiet",
+        "limited": "Beperkt tot een maximum"
       }
     }
   }

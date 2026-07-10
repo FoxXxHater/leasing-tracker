@@ -12,8 +12,22 @@
           "start_km": "Kilometerstand bei Start",
           "km_per_year": "Erlaubte Strecke pro Jahr",
           "unit_system": "Einheitensystem",
-          "excess_price": "Preis pro Mehr-Strecke (bei Überschreitung)",
-          "currency": "Währung"
+          "currency": "Währung",
+          "has_tolerance": "Vertrag hat eine Toleranz-/Kulanzgrenze",
+          "has_excess_charge": "Es fallen Kosten für Mehr-Strecke an",
+          "has_refund": "Es gibt eine Erstattung für Minder-Strecke"
+        }
+      },
+      "contract": {
+        "title": "Vertragsbedingungen",
+        "description": "Geben Sie die Details zu den ausgewählten Vertragsbedingungen ein. Alle Strecken verwenden dieselbe Einheit wie Ihre Sensoren.",
+        "data": {
+          "tolerance_over": "Toleranz über dem Limit (wird nicht berechnet)",
+          "tolerance_under": "Toleranz unter dem Limit (wird nicht erstattet)",
+          "excess_price": "Preis pro Mehr-Strecke",
+          "refund_price": "Erstattung pro Minder-Strecke",
+          "refund_limit_mode": "Erstattungsgrenze",
+          "max_refund_distance": "Maximal erstattungsfähige Strecke (nur bei begrenzt)"
         }
       }
     },
@@ -38,8 +52,22 @@
           "start_km": "Kilometerstand bei Start",
           "km_per_year": "Erlaubte Strecke pro Jahr",
           "unit_system": "Einheitensystem",
-          "excess_price": "Preis pro Mehr-Strecke (bei Überschreitung)",
-          "currency": "Währung"
+          "currency": "Währung",
+          "has_tolerance": "Vertrag hat eine Toleranz-/Kulanzgrenze",
+          "has_excess_charge": "Es fallen Kosten für Mehr-Strecke an",
+          "has_refund": "Es gibt eine Erstattung für Minder-Strecke"
+        }
+      },
+      "contract": {
+        "title": "Vertragsbedingungen",
+        "description": "Geben Sie die Details zu den ausgewählten Vertragsbedingungen ein. Alle Strecken verwenden dieselbe Einheit wie Ihre Sensoren.",
+        "data": {
+          "tolerance_over": "Toleranz über dem Limit (wird nicht berechnet)",
+          "tolerance_under": "Toleranz unter dem Limit (wird nicht erstattet)",
+          "excess_price": "Preis pro Mehr-Strecke",
+          "refund_price": "Erstattung pro Minder-Strecke",
+          "refund_limit_mode": "Erstattungsgrenze",
+          "max_refund_distance": "Maximal erstattungsfähige Strecke (nur bei begrenzt)"
         }
       }
     },
@@ -133,6 +161,15 @@
       },
       "estimated_excess_cost": {
         "name": "Geschätzte Mehrkosten"
+      },
+      "estimated_under_km": {
+        "name": "Geschätzte Minder-Strecke"
+      },
+      "estimated_refund": {
+        "name": "Geschätzte Erstattung"
+      },
+      "estimated_net_cost": {
+        "name": "Geschätzte Netto-Abrechnung"
       }
     }
   },
@@ -149,6 +186,12 @@
         "usd": "US Dollar ($)",
         "gbp": "British Pound (£)",
         "chf": "Swiss Franc (CHF)"
+      }
+    },
+    "refund_limit_mode": {
+      "options": {
+        "unlimited": "Keine Obergrenze",
+        "limited": "Auf Maximum begrenzt"
       }
     }
   }
