@@ -1,5 +1,34 @@
 # Changelog
 
+## [1.5.1] - 10-07-2026
+
+### Fixed
+- 🐛 **A few things**
+
+## [1.5.0] - 10-07-2026
+
+### Added
+- 🤝 **Tolerance / goodwill band** — many leases allow a number of kilometers above or below the allowance that is neither charged nor refunded. Two separate fields let you set the tolerance above and below independently (e.g. +2500 / -1000). Previously this could only be faked via the start odometer, which corrupted the driven-distance, average and progress sensors.
+- 💰 **Refund for under-driven distance** — configure a refund per under-driven km/mile, with an explicit limit selector (`No limit` / `Limited to a maximum`) so a value of `0` is never ambiguous.
+- 🆕 **Three new sensors**
+  - **Estimated Under-Driven Distance** — projected distance below the allowance at lease end (after tolerance)
+  - **Estimated Refund** — projected refund, capped when the contract limits it
+  - **Estimated Net Settlement** — excess cost minus refund; negative means the lessor owes you
+- 🧭 **Two-step configuration** — the first step now asks whether your contract has a tolerance band, excess charges and/or a refund. Only the fields for the terms you enabled are shown in the second step. If you enable none, the second step is skipped entirely.
+
+### Changed
+- 📊 **Status sensor reworked** — the old hard-coded thresholds (±500 km / 2000 km) never made sense in miles and did not scale with contract size. The status now uses your configured tolerance band when there is one, and otherwise falls back to 2% of the total allowance (`over_plan`) and a further 5% (`significantly_over_plan`). Identical relative deviations now produce identical statuses on a 10,000 and a 50,000 unit contract, in either unit system.
+- ⚖️ **Excess distance is now tolerance-aware** — `Estimated Excess Distance` and `Estimated Excess Cost` subtract the upper tolerance before charging.
+
+### Technical
+- New config keys: `has_tolerance`, `has_excess_charge`, `has_refund`, `tolerance_over`, `tolerance_under`, `refund_price`, `refund_limit_mode`, `max_refund_distance`
+- The clamped excess calculation was replaced by a signed deviation, then split into excess / under-driven after applying the tolerance band
+- Tolerances, prices and the refund cap are all interpreted in the **display unit** (km or miles), consistent with `excess_price`; conversion to km happens internally where the detected unit is current
+- `Estimated Under-Driven Distance` always reports the full under-driven distance; the refund cap only limits the money, not the distance
+- Disabled contract terms are written back as neutral defaults, so the sensor code can read every key unconditionally
+- Existing configurations keep working: the flags are derived from stored values (`excess_price > 0` implies excess charges) and missing keys fall back to neutral defaults
+- `refund_limit_mode` selector keys are lowercase (`unlimited`, `limited`) to satisfy hassfest translation-key validation
+
 ## [1.4.1] - 26-06-2026
 
 ### Fixed
