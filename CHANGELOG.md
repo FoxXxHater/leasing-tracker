@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.6.2] - 14-07-2026
+
+### Fixed
+- 🏷️ **Distance sensors all showed the same name ("Strecke" / "Distance")** — in 1.5.1 the internal variable rename (`*_km` → `*_distance`) accidentally also renamed the sensors' `translation_key` values, so they no longer matched the keys in the translation files. Home Assistant could not find a translated name and fell back to the device-class label, making 16 sensors appear identical. The translation keys now match the translation files again, and every sensor shows its correct individual name.
+
+
 ## [1.6.1] - 14-07-2026
 
 ### Fixed
@@ -30,24 +36,10 @@
 - 📊 **Status sensor reworked** — the old hard-coded thresholds (±500 km / 2000 km) never made sense in miles and did not scale with contract size. The status now uses your configured tolerance band when there is one, and otherwise falls back to 2% of the total allowance (`over_plan`) and a further 5% (`significantly_over_plan`). Identical relative deviations now produce identical statuses on a 10,000 and a 50,000 unit contract, in either unit system.
 - ⚖️ **Excess distance is now tolerance-aware** — `Estimated Excess Distance` and `Estimated Excess Cost` subtract the upper tolerance before charging.
 
-### Technical
-- New config keys: `has_tolerance`, `has_excess_charge`, `has_refund`, `tolerance_over`, `tolerance_under`, `refund_price`, `refund_limit_mode`, `max_refund_distance`
-- The clamped excess calculation was replaced by a signed deviation, then split into excess / under-driven after applying the tolerance band
-- Tolerances, prices and the refund cap are all interpreted in the **display unit** (km or miles), consistent with `excess_price`; conversion to km happens internally where the detected unit is current
-- `Estimated Under-Driven Distance` always reports the full under-driven distance; the refund cap only limits the money, not the distance
-- Disabled contract terms are written back as neutral defaults, so the sensor code can read every key unconditionally
-- Existing configurations keep working: the flags are derived from stored values (`excess_price > 0` implies excess charges) and missing keys fall back to neutral defaults
-- `refund_limit_mode` selector keys are lowercase (`unlimited`, `limited`) to satisfy hassfest translation-key validation
-
 ## [1.4.1] - 26-06-2026
 
 ### Fixed
 - 🐛 **hassfest validation error** — the currency selector used uppercase option keys (`EUR`, `USD`, …), which are rejected by Home Assistant's translation validator (keys must match `[a-z0-9-_]+`). The keys are now lowercase (`eur`, `usd`, `gbp`, `chf`) and mapped internally to the ISO 4217 code the monetary sensor needs.
-
-### Technical
-- New `CURRENCY_ISO_CODES` mapping translates the lowercase selector value to the ISO code (e.g. `eur` → `EUR`)
-- The cost sensor still reports the correct ISO currency code as its unit
-- No user-facing change: existing configs default to EUR; pick the currency again in options if it was set before
 
 ## [1.4.0] - 03-05-2026
 
@@ -65,13 +57,6 @@
 
 ### Changed
 - 🌍 **Translations** updated for all new fields, the currency selector and the new sensors (English, German, Dutch)
-
-### Technical
-- New config keys: `excess_price`, `currency`
-- The excess cost is projected to lease end (not the current overage); excess distance is clamped to 0 when within allowance
-- Cost is computed in the display unit (price-per-mile × excess-in-miles for imperial), so it stays consistent with what the user entered
-- `Estimated Excess Cost` uses `device_class: monetary` with the ISO currency code as unit (HA requires the ISO code, not the symbol) and no `state_class` (monetary does not allow `measurement`)
-- `Lease End Date` uses `device_class: timestamp` with a timezone-aware datetime via `dt_util.start_of_local_day()`
 
 ## [1.3.0] - 26-06-2026 ⚠️ BREAKING CHANGES
 
