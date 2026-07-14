@@ -11,7 +11,7 @@
           "end_date": "Einddatum lease",
           "start_km": "Kilometerstand bij Start",
           "km_per_year": "Toegestane Afstand per Jaar",
-          "currency": "Valuta",
+          "currency": "Valuta (ISO-code, bijv. EUR, USD, SEK)",
           "has_tolerance": "Contract heeft een tolerantie-/coulancemarge",
           "has_excess_charge": "Er zijn kosten voor extra afstand",
           "has_refund": "Er is een vergoeding voor minder gereden afstand"
@@ -32,7 +32,8 @@
     },
     "error": {
       "end_before_start": "De einddatum moet na de startdatum liggen.",
-      "unknown": "Er is een onbekende fout opgetreden."
+      "unknown": "Er is een onbekende fout opgetreden.",
+      "invalid_currency": "Voer een geldige 3-letterige ISO-valutacode in (bijv. EUR, USD, SEK)."
     },
     "abort": {
       "already_configured": "Een Leasing Tracker met deze naam bestaat al."
@@ -50,7 +51,7 @@
           "end_date": "Einddatum lease",
           "start_km": "Kilometerstand bij Start",
           "km_per_year": "Toegestane Afstand per Jaar",
-          "currency": "Valuta",
+          "currency": "Valuta (ISO-code, bijv. EUR, USD, SEK)",
           "has_tolerance": "Contract heeft een tolerantie-/coulancemarge",
           "has_excess_charge": "Er zijn kosten voor extra afstand",
           "has_refund": "Er is een vergoeding voor minder gereden afstand"
@@ -71,7 +72,8 @@
     },
     "error": {
       "end_before_start": "De einddatum moet na de startdatum liggen.",
-      "unknown": "Er is een onbekende fout opgetreden."
+      "unknown": "Er is een onbekende fout opgetreden.",
+      "invalid_currency": "Voer een geldige 3-letterige ISO-valutacode in (bijv. EUR, USD, SEK)."
     }
   },
   "entity": {
@@ -172,14 +174,6 @@
     }
   },
   "selector": {
-    "currency": {
-      "options": {
-        "eur": "Euro (€)",
-        "usd": "US Dollar ($)",
-        "gbp": "British Pound (£)",
-        "chf": "Swiss Franc (CHF)"
-      }
-    },
     "refund_limit_mode": {
       "options": {
         "unlimited": "Geen limiet",

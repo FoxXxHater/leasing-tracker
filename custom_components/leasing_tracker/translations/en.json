@@ -12,7 +12,7 @@
           "start_km": "Odometer at Start",
           "km_per_year": "Allowed Distance per Year",
           "unit_system": "Unit System",
-          "currency": "Currency",
+          "currency": "Currency (ISO code, e.g. EUR, USD, SEK)",
           "has_tolerance": "Contract has a tolerance / goodwill band",
           "has_excess_charge": "Charges apply for excess distance",
           "has_refund": "Refund is paid for under-driven distance"
@@ -33,7 +33,8 @@
     },
     "error": {
       "end_before_start": "End date must be after start date.",
-      "unknown": "An unknown error occurred."
+      "unknown": "An unknown error occurred.",
+      "invalid_currency": "Enter a valid 3-letter ISO currency code (e.g. EUR, USD, SEK)."
     },
     "abort": {
       "already_configured": "A Leasing Tracker with this name already exists."
@@ -52,7 +53,7 @@
           "start_km": "Odometer at Start",
           "km_per_year": "Allowed Distance per Year",
           "unit_system": "Unit System",
-          "currency": "Currency",
+          "currency": "Currency (ISO code, e.g. EUR, USD, SEK)",
           "has_tolerance": "Contract has a tolerance / goodwill band",
           "has_excess_charge": "Charges apply for excess distance",
           "has_refund": "Refund is paid for under-driven distance"
@@ -73,7 +74,8 @@
     },
     "error": {
       "end_before_start": "End date must be after start date.",
-      "unknown": "An unknown error occurred."
+      "unknown": "An unknown error occurred.",
+      "invalid_currency": "Enter a valid 3-letter ISO currency code (e.g. EUR, USD, SEK)."
     }
   },
   "entity": {
@@ -178,14 +180,6 @@
       "options": {
         "metric": "Metric (km)",
         "imperial": "Imperial (miles)"
-      }
-    },
-    "currency": {
-      "options": {
-        "eur": "Euro (€)",
-        "usd": "US Dollar ($)",
-        "gbp": "British Pound (£)",
-        "chf": "Swiss Franc (CHF)"
       }
     },
     "refund_limit_mode": {

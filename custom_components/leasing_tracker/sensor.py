@@ -36,8 +36,7 @@ from .const import (
     CONF_START_KM,
     CONF_TOLERANCE_OVER,
     CONF_TOLERANCE_UNDER,
-    CURRENCY_ISO_CODES,
-    CURRENCY_SYMBOLS,
+    DEFAULT_CURRENCY,
     DOMAIN,
     REFUND_LIMIT_LIMITED,
     STATUS_DEFAULT_TOLERANCE_FRACTION,
@@ -184,11 +183,13 @@ class LeasingTrackerSensor(SensorEntity):
         # Excess mileage pricing (optional). Price is per displayed distance
         # unit (km or miles) — the same unit the user sees in the UI.
         self._excess_price = float(entry.data.get(CONF_EXCESS_PRICE, 0.0) or 0.0)
-        # The config selector stores a lowercase key (e.g. "eur"); map it to the
-        # ISO 4217 code (e.g. "EUR") that HA's monetary device_class expects.
-        currency_key = str(entry.data.get(CONF_CURRENCY, "eur")).lower()
-        self._currency = CURRENCY_ISO_CODES.get(currency_key, "EUR")
-        self._currency_symbol = CURRENCY_SYMBOLS.get(self._currency, self._currency)
+        # Currency is a free-text ISO 4217 code. Fall back to the currency
+        # configured in Home Assistant (hass.config.currency), and finally to
+        # EUR. It is used as the unit of the monetary sensors.
+        currency = entry.data.get(CONF_CURRENCY)
+        if not currency:
+            currency = getattr(hass.config, "currency", None) or DEFAULT_CURRENCY
+        self._currency = str(currency).strip().upper()
 
         # --- Contract terms -------------------------------------------------
         # Tolerance band ("goodwill"): distance above/below the allowance that

@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import logging
+import re
 from typing import Any
 
 import voluptuous as vol
@@ -35,6 +36,23 @@ from .const import (
 )
 
 _LOGGER = logging.getLogger(__name__)
+
+# ISO 4217 codes are three ASCII letters (e.g. EUR, USD, SEK). We only use the
+# code as a display label on the monetary sensor, so a light format check is
+# enough — we don't maintain an allow-list of every currency in the world.
+_CURRENCY_RE = re.compile(r"^[A-Za-z]{3}$")
+
+
+def _currency_text() -> selector.TextSelector:
+    """Free-text selector for an ISO 4217 currency code."""
+    return selector.TextSelector(
+        selector.TextSelectorConfig(type=selector.TextSelectorType.TEXT)
+    )
+
+
+def _default_currency(hass) -> str:
+    """Default currency: the one configured in Home Assistant, else EUR."""
+    return (getattr(hass.config, "currency", None) or "EUR").upper()
 
 
 def _distance_number() -> selector.NumberSelector:
@@ -169,7 +187,10 @@ class LeasingTrackerConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
         if user_input is not None:
             try:
-                if user_input[CONF_END_DATE] <= user_input[CONF_START_DATE]:
+                currency = str(user_input.get(CONF_CURRENCY, "")).strip()
+                if not _CURRENCY_RE.match(currency):
+                    errors[CONF_CURRENCY] = "invalid_currency"
+                elif user_input[CONF_END_DATE] <= user_input[CONF_START_DATE]:
                     errors["base"] = "end_before_start"
                 else:
                     await self.async_set_unique_id(
@@ -178,6 +199,7 @@ class LeasingTrackerConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                     self._abort_if_unique_id_configured()
 
                     self._data = dict(user_input)
+                    self._data[CONF_CURRENCY] = currency.upper()
 
                     if _needs_contract_step(self._data):
                         return await self.async_step_contract()
@@ -208,12 +230,9 @@ class LeasingTrackerConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                         translation_key="unit_system",
                     )
                 ),
-                vol.Required(CONF_CURRENCY, default="eur"): selector.SelectSelector(
-                    selector.SelectSelectorConfig(
-                        options=["eur", "usd", "gbp", "chf"],
-                        translation_key="currency",
-                    )
-                ),
+                vol.Required(
+                    CONF_CURRENCY, default=_default_currency(self.hass)
+                ): _currency_text(),
                 vol.Optional(CONF_HAS_TOLERANCE, default=False): selector.BooleanSelector(),
                 vol.Optional(
                     CONF_HAS_EXCESS_CHARGE, default=False
@@ -275,10 +294,14 @@ class LeasingTrackerOptionsFlow(config_entries.OptionsFlow):
 
         if user_input is not None:
             try:
-                if user_input[CONF_END_DATE] <= user_input[CONF_START_DATE]:
+                currency = str(user_input.get(CONF_CURRENCY, "")).strip()
+                if not _CURRENCY_RE.match(currency):
+                    errors[CONF_CURRENCY] = "invalid_currency"
+                elif user_input[CONF_END_DATE] <= user_input[CONF_START_DATE]:
                     errors["base"] = "end_before_start"
                 else:
                     self._data = dict(user_input)
+                    self._data[CONF_CURRENCY] = currency.upper()
 
                     if _needs_contract_step(self._data):
                         return await self.async_step_contract()
@@ -346,13 +369,9 @@ class LeasingTrackerOptionsFlow(config_entries.OptionsFlow):
                 ),
                 vol.Required(
                     CONF_CURRENCY,
-                    default=existing.get(CONF_CURRENCY, "eur"),
-                ): selector.SelectSelector(
-                    selector.SelectSelectorConfig(
-                        options=["eur", "usd", "gbp", "chf"],
-                        translation_key="currency",
-                    )
-                ),
+                    default=existing.get(CONF_CURRENCY)
+                    or _default_currency(self.hass),
+                ): _currency_text(),
                 vol.Optional(
                     CONF_HAS_TOLERANCE, default=default_has_tolerance
                 ): selector.BooleanSelector(),

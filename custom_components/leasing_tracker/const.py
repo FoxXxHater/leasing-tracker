@@ -11,7 +11,7 @@ CONF_START_KM = "start_km"
 CONF_KM_PER_YEAR = "km_per_year"
 CONF_UNIT_SYSTEM = "unit_system"  # "metric" or "imperial"
 CONF_EXCESS_PRICE = "excess_price"  # price per excess km/mile over the allowance
-CONF_CURRENCY = "currency"  # "eur", "usd", "gbp", "chf" (lowercase selector keys)
+CONF_CURRENCY = "currency"  # free-text ISO 4217 code, e.g. "EUR", "SEK", "PLN"
 
 # --- Contract terms (asked in step 1, filled in step 2) ---
 # Gating questions
@@ -38,23 +38,8 @@ REFUND_LIMIT_LIMITED = "limited"
 STATUS_DEFAULT_TOLERANCE_FRACTION = 0.02  # 2% of total allowance
 STATUS_SIGNIFICANT_FRACTION = 0.05  # a further 5% -> "significantly over plan"
 
-# Map lowercase config values to ISO 4217 currency codes.
-# HA's monetary device_class expects the ISO code (e.g. "EUR"), while the
-# config-flow selector keys must be lowercase ([a-z0-9-_]+) to pass hassfest.
-CURRENCY_ISO_CODES = {
-    "eur": "EUR",
-    "usd": "USD",
-    "gbp": "GBP",
-    "chf": "CHF",
-}
-
-# Currency symbols (keyed by ISO code)
-CURRENCY_SYMBOLS = {
-    "EUR": "€",
-    "USD": "$",
-    "GBP": "£",
-    "CHF": "CHF",
-}
+# Fallback currency when neither the config entry nor hass.config provide one.
+DEFAULT_CURRENCY = "EUR"
 
 # Sensor types
 SENSOR_REMAINING_KM_TOTAL = "remaining_km_total"

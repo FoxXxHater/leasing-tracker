@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.6.1] - 14-07-2026
+
+### Fixed
+- 🖼️ **Integration icon/logo now shows in Home Assistant** — the integration page previously displayed the "icon not available" placeholder. Brand images (icon and logo) are now bundled inside the integration under `custom_components/leasing_tracker/brand/`, which Home Assistant serves directly.
+
+## [1.6.0] - 14-07-2026
+
+### Changed
+- 💱 **Any currency is now supported** — the currency field is now free text instead of a fixed list of four options. Enter any ISO 4217 code (e.g. `SEK`, `PLN`, `JPY`). The field is pre-filled with the currency configured in Home Assistant (`hass.config.currency`), so for most users the right value is already there.
+
 ## [1.5.1] - 10-07-2026
 
 ### Fixed
