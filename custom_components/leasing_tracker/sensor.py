@@ -476,8 +476,12 @@ class LeasingTrackerSensor(CoordinatorEntity[LeasingTrackerCoordinator], SensorE
         # actually makes the sensor display in the unit we want.
         if config.get("device_class") == SensorDeviceClass.DISTANCE:
             self._attr_suggested_unit_of_measurement = config.get("unit")
+            # Distances are whole units — tell the frontend to show no decimals
+            # regardless of the value's own precision or unit conversion.
+            self._attr_suggested_display_precision = 0
         else:
             self._attr_suggested_unit_of_measurement = None
+            self._attr_suggested_display_precision = None
 
         # For enum sensors (like status)
         if config.get("options"):
