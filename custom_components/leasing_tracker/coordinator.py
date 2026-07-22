@@ -7,7 +7,7 @@ per source-entity change and every sensor reads its own key from it.
 """
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import date, datetime
 import logging
 from typing import Any
 
@@ -155,35 +155,42 @@ class LeasingTrackerCoordinator(DataUpdateCoordinator[dict[str, Any] | None]):
         # the status fallback, which is expressed as a fraction of the allowance
         # and is therefore unit-free by construction.
         # ------------------------------------------------------------------
-        start_date = self._start_date
-        end_date = self._end_date
         start_distance = self._start_distance
         distance_per_year = self._distance_per_year
 
-        now = datetime.now()
+        # Work in local calendar dates. Using dates (not datetimes) keeps the
+        # day arithmetic exact: a datetime carries a time-of-day component, so
+        # e.g. (Dec 31 00:00 - now) would floor to -1 on the afternoon of the
+        # last day. dt_util.now() is Home Assistant's timezone-aware "now";
+        # taking .date() gives today's local calendar date.
+        today = dt_util.now().date()
+        start_date = self._start_date.date()
+        end_date = self._end_date.date()
+
         total_days = (end_date - start_date).days
-        elapsed_days = (now - start_date).days
-        remaining_days = (end_date - now).days
+        elapsed_days = (today - start_date).days
+        remaining_days = (end_date - today).days
 
         # Current year/month
-        year_start = datetime(now.year, 1, 1)
-        month_start = datetime(now.year, now.month, 1)
+        year_start = date(today.year, 1, 1)
+        year_end = date(today.year, 12, 31)
+        month_start = date(today.year, today.month, 1)
 
         # Days in current periods
-        days_in_year = (datetime(now.year, 12, 31) - year_start).days + 1
-        if now.month == 12:
-            days_in_month = (datetime(now.year, 12, 31) - month_start).days + 1
+        days_in_year = (year_end - year_start).days + 1
+        if today.month == 12:
+            days_in_month = (year_end - month_start).days + 1
         else:
-            next_month = datetime(now.year, now.month + 1, 1)
+            next_month = date(today.year, today.month + 1, 1)
             days_in_month = (next_month - month_start).days
 
         # Remaining days in periods
-        remaining_days_year = (datetime(now.year, 12, 31) - now).days
-        if now.month == 12:
-            remaining_days_month = (datetime(now.year, 12, 31) - now).days
+        remaining_days_year = (year_end - today).days
+        if today.month == 12:
+            remaining_days_month = (year_end - today).days
         else:
-            next_month = datetime(now.year, now.month + 1, 1)
-            remaining_days_month = (next_month - now).days
+            next_month = date(today.year, today.month + 1, 1)
+            remaining_days_month = (next_month - today).days
 
         # Total driven
         total_distance_driven = current_distance - start_distance
@@ -194,7 +201,7 @@ class LeasingTrackerCoordinator(DataUpdateCoordinator[dict[str, Any] | None]):
 
         # Year calculations
         if year_start >= start_date:
-            days_into_year = (now - year_start).days
+            days_into_year = (today - year_start).days
             allowed_distance_this_year = (days_into_year / days_in_year) * distance_per_year
 
             # Find distance at year start
@@ -211,7 +218,7 @@ class LeasingTrackerCoordinator(DataUpdateCoordinator[dict[str, Any] | None]):
 
         # Month calculations
         if month_start >= start_date:
-            days_into_month = (now - month_start).days
+            days_into_month = (today - month_start).days
             allowed_distance_this_month = (days_into_month / days_in_month) * allowed_distance_per_month
 
             # Find distance at month start
@@ -247,11 +254,15 @@ class LeasingTrackerCoordinator(DataUpdateCoordinator[dict[str, Any] | None]):
         estimated_distance_month_end = current_distance + remaining_distance_month_estimated
         estimated_distance_year_end = current_distance + remaining_distance_year_estimated
 
-        # Difference
-        distance_difference = total_distance_driven - ((elapsed_days / total_days) * allowed_distance_total)
-
-        # Progress
-        progress = (elapsed_days / total_days) * 100 if total_days > 0 else 0
+        # Difference and progress. total_days is >= 1 in practice (the config
+        # flow rejects end <= start), but guard the division anyway so a bad
+        # entry can never raise ZeroDivisionError.
+        if total_days > 0:
+            pro_rata_fraction = elapsed_days / total_days
+        else:
+            pro_rata_fraction = 0
+        distance_difference = total_distance_driven - (pro_rata_fraction * allowed_distance_total)
+        progress = pro_rata_fraction * 100
 
         # --- Tolerance band (already in the display unit) -------------------
         tolerance_over = self._tolerance_over
@@ -327,7 +338,7 @@ class LeasingTrackerCoordinator(DataUpdateCoordinator[dict[str, Any] | None]):
         # TIMESTAMP device class requires a timezone-aware datetime.
         # start_of_local_day returns midnight of the given date in HA's
         # configured timezone, correctly handling DST and historical offsets.
-        end_date_localized = dt_util.start_of_local_day(end_date.date())
+        end_date_localized = dt_util.start_of_local_day(end_date)
 
         return {
             SENSOR_REMAINING_KM_TOTAL: remaining_distance_total,

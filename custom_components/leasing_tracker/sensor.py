@@ -176,6 +176,9 @@ class LeasingTrackerSensor(CoordinatorEntity[LeasingTrackerCoordinator], SensorE
     """
 
     _attr_has_entity_name = True
+    # Fully push-driven: the coordinator refreshes every sensor when the source
+    # odometer changes, so there is nothing to poll for.
+    _attr_should_poll = False
 
     def __init__(
         self,
