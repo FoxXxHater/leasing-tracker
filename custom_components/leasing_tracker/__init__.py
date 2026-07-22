@@ -2,14 +2,15 @@
 from __future__ import annotations
 
 import logging
-from datetime import datetime, timedelta
-from typing import Any
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import config_validation as cv
+from homeassistant.helpers.event import async_track_state_change_event
 from homeassistant.helpers.typing import ConfigType
+
+from .coordinator import LeasingTrackerCoordinator
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -28,7 +29,21 @@ async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up Leasing Tracker from a config entry."""
     hass.data.setdefault(DOMAIN, {})
-    hass.data[DOMAIN][entry.entry_id] = entry.data
+
+    coordinator = LeasingTrackerCoordinator(hass, entry)
+    await coordinator.async_config_entry_first_refresh()
+
+    # A single listener on the source odometer entity refreshes every sensor of
+    # this entry at once, instead of each sensor subscribing separately.
+    entry.async_on_unload(
+        async_track_state_change_event(
+            hass,
+            [coordinator.source_entity_id],
+            coordinator._handle_source_change,
+        )
+    )
+
+    hass.data[DOMAIN][entry.entry_id] = coordinator
 
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
 
